@@ -12,7 +12,7 @@ export function App() {
 
   return (
     <div>
-      <h3>{fileName}</h3>
+      <h1 className="text-3xl font-bold underline text-center">{fileName}</h1>
       <div>
         {Array(numberOfArgs)
           .fill(0)
@@ -27,6 +27,7 @@ export function App() {
                   updatedValue[index] = event.target.value;
                   setValues(updatedValue);
                 }}
+                className=" border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               />
             );
           })}
