@@ -19,6 +19,7 @@ function mergeSort(numbers: number[]): number[] {
  *          T(n/2) is for each of divided array
  *          c is constant work like dividing array
  *
+ * The Auxiliary space complexity is O(n)
  */
 function mergeSortWithIndex(
   numbers: number[],
