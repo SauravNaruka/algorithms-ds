@@ -6,10 +6,10 @@ type Module = {
   default: UnkownFunctionType;
 };
 
-const modules = import.meta.glob("./algorithms/*.ts");
+const modules = import.meta.glob("./algorithms/**");
 
 function loadComponent(fileName: string) {
-  return modules[`./algorithms${fileName}.ts`]();
+  return modules[`.${fileName}.ts`]();
 }
 
 export function useLazyFunctionImport() {

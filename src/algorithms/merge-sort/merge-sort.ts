@@ -7,8 +7,8 @@ export default function mergeSortAdapter(numberString: string) {
   return mergeSort(numberArray);
 }
 
-function mergeSort(numbers: number[]): number[] {
-  return mergeSortWithIndex(numbers, 0, numbers.length);
+export function mergeSort(numbers: number[]): number[] {
+  return divideAndMergeSort(numbers, 0, numbers.length);
 }
 
 /**
@@ -21,31 +21,30 @@ function mergeSort(numbers: number[]): number[] {
  *
  * The Auxiliary space complexity is O(n)
  */
-function mergeSortWithIndex(
+function divideAndMergeSort(
   numbers: number[],
-  start: number,
-  end: number
+  startIndex: number,
+  endIndex: number
 ): number[] {
-  if (start < end - 1) {
-    const middlePoint = getMiddlePoint(start, end);
+  if (startIndex < endIndex - 1) {
+    const middleIndex = calculateMiddleIndex(startIndex, endIndex);
 
-    const leftNumbers = mergeSortWithIndex(numbers, start, middlePoint);
+    const leftNumbers = divideAndMergeSort(numbers, startIndex, middleIndex);
 
-    const rightNumbers = mergeSortWithIndex(numbers, middlePoint, end);
+    const rightNumbers = divideAndMergeSort(numbers, middleIndex, endIndex);
 
     return mergeArray(leftNumbers, rightNumbers);
   } else {
-    return numbers.slice(start, start + 1);
+    return numbers.slice(startIndex, startIndex + 1);
   }
 }
 
-function getMiddlePoint(start: number, end: number) {
+function calculateMiddleIndex(start: number, end: number) {
   return Math.floor((start + end) / 2);
 }
 
 function mergeArray(firstArray: number[], secondArray: number[]): number[] {
-  const sortedNumers: number[] = [];
-  let sortedIndex = 0;
+  let sortedNumers: number[] = [];
   let firstArrayIndex = 0;
   let secondArrayIndex = 0;
 
@@ -54,19 +53,18 @@ function mergeArray(firstArray: number[], secondArray: number[]): number[] {
     secondArrayIndex < secondArray.length
   ) {
     if (firstArrayIndex === firstArray.length) {
-      sortedNumers[sortedIndex] = secondArray[secondArrayIndex];
-      secondArrayIndex++;
+      sortedNumers = sortedNumers.concat(secondArray.slice(secondArrayIndex));
+      return sortedNumers;
     } else if (secondArrayIndex === secondArray.length) {
-      sortedNumers[sortedIndex] = firstArray[firstArrayIndex];
-      firstArrayIndex++;
+      sortedNumers = sortedNumers.concat(firstArray.slice(firstArrayIndex));
+      return sortedNumers;
     } else if (firstArray[firstArrayIndex] <= secondArray[secondArrayIndex]) {
-      sortedNumers[sortedIndex] = firstArray[firstArrayIndex];
+      sortedNumers.push(firstArray[firstArrayIndex]);
       firstArrayIndex++;
     } else {
-      sortedNumers[sortedIndex] = secondArray[secondArrayIndex];
+      sortedNumers.push(secondArray[secondArrayIndex]);
       secondArrayIndex++;
     }
-    sortedIndex++;
   }
 
   return sortedNumers;
