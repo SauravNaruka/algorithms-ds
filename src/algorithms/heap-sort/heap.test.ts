@@ -1,5 +1,5 @@
 import { expect, test, describe } from "vitest";
-import { Heap } from "./heap";
+import { Heap } from "./heap-sort";
 
 describe("heap", () => {
   test.skip("parent functions", () => {

@@ -1,13 +1,16 @@
 import * as React from "react";
-import { useLazyFunctionImport } from "./useLazyFunctionImport";
+import { NotFoundPage } from "./NotFoundPage";
+import { useLazyFunctionImport } from "./hooks/useLazyFunctionImport";
 
 export function App() {
   const [values, setValues] = React.useState<(string | number)[]>([]);
   const [result, setResult] = React.useState<string | number>("");
   const [module, numberOfArgs, fileName] = useLazyFunctionImport();
 
-  if (!module) {
-    return <div>No function exist</div>;
+  if (module === null) {
+    return <NotFoundPage />;
+  } else if (module === undefined) {
+    return <div>Loading...</div>;
   }
 
   return (
@@ -34,7 +37,7 @@ export function App() {
       </div>
       <button
         onClick={() => {
-          const result = module.default(...values);
+          const result = module?.default(...values) ?? "";
           setResult(result);
         }}
       >

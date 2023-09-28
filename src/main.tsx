@@ -2,17 +2,22 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { App } from "./app";
-import { Index } from "./index";
-import "./index.css";
+import { HomePage } from "./homePage";
+import { NotFoundPage } from "./NotFoundPage";
+import "./styles/index.css";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Index />,
+    element: <HomePage />,
+  },
+  {
+    path: "/algorithms/*",
+    element: <App />,
   },
   {
     path: "/*",
-    element: <App />,
+    element: <NotFoundPage />,
   },
 ]);
 
